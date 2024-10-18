@@ -1,0 +1,19 @@
+class Solution {
+    public void backtrack(int[] nums,int ind,int Cor,int mx,int[] c){
+      if(Cor==mx){
+        c[0]++;
+      }
+      for(int i=ind;i<nums.length;i++){
+        backtrack(nums,i+1,Cor|nums[i],mx,c);
+      }
+    }
+    public int countMaxOrSubsets(int[] nums) {
+        int mx=0;
+        for(int n:nums){
+            mx|=n;
+        }
+        int[] c=new int[1];
+        backtrack(nums,0,0,mx,c);
+        return c[0];
+    }
+}
