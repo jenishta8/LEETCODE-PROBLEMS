@@ -1,0 +1,40 @@
+class Solution {
+    public boolean parseBoolExpr(String ex) {
+        Stack<Character> s=new Stack<>();
+        for(char ch:ex.toCharArray()){
+            if(ch!=')' && ch!=','){
+               s.push(ch);
+            }
+            else if(ch==')'){
+                 ArrayList<Boolean> l=new ArrayList<>();
+                 while(!s.isEmpty() && s.peek()!='('){
+                 char t=s.pop();
+                 if(t=='t')
+                   l.add(true);
+                  else
+                    l.add(false);
+                 }
+                 s.pop();
+                 if(!s.isEmpty()){
+                   char t=s.pop();
+                   Boolean v=l.get(0);
+                   if(t=='&'){
+                      for(boolean b:l)
+                        v&=b;
+                   }
+                    else if(t=='|'){
+                       for(boolean b:l)
+                       v|=b;
+                    }
+                    else{
+                      v=!v;
+                    }
+                   if(v)
+                     s.push('t');
+                     else s.push('f');
+                 }
+            }
+        }
+        return s.peek()=='t';
+    }
+}
